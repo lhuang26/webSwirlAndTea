@@ -1,0 +1,144 @@
+Implement the attached Swirl & Tea homepage design in my existing React + Vite application.
+
+## Main objective
+
+Reproduce the attached mockup as closely as possible as a professional, responsive, fully functional website.
+
+**Important: Do not redesign the page.** Preserve the approved layout, colors, typography, photographs, spacing, and visual hierarchy.
+
+## Technology
+
+- Use my existing React + Vite project.
+- Use functional React components and CSS.
+- Follow the project's existing JavaScript or TypeScript conventions.
+- Do not introduce Next.js, backend frameworks, or unnecessary dependencies.
+- Create reusable components and keep the source code maintainable.
+
+## 1. Navigation bar
+
+Use a single horizontal burgundy navigation bar.
+
+Left: Display `/images/logo.png`, preserving its proportions.
+
+Center:
+- Home
+- Menu
+- Cakes
+- Specials
+- Feedback
+- Visit Us
+
+Right: A large cream-colored **Order Online** button with a shopping cart icon.
+
+The Home item should have the active yellow underline shown in the mockup.
+
+The header must be responsive. On mobile, use a hamburger menu while keeping the brand and Order Online easy to access.
+
+## 2. Main hero section
+
+Use the approved store-interior scene from the mockup.
+
+Headline:
+"Your Neighborhood Dessert & Tea Shop"
+
+Subtitle:
+"Bubble Tea, Traditional Chinese Tea & Ice Cream"
+
+Description:
+"A cozy, welcoming place for friends, families, and tea lovers of all ages."
+
+Preserve the image's composition, the people, the burgundy walls, the ice cream freezers, and the red and blue seating.
+
+Do not attempt to recreate the photograph using CSS or replace it with an unrelated stock image.
+
+## 3. Product promotion banner
+
+Display the four featured products: soft-serve ice cream, bubble tea, green tea, and traditional hot tea.
+
+Headline:
+"Ice Cream, Tea, Cakes & Novelties"
+
+Subtitle:
+"Your Local Treat Shop in Ridgefield, CT"
+
+Include a prominent "Order Online for Pickup" button.
+
+## 4. Product categories
+
+Create four responsive category cards:
+
+- Ice Cream
+- Tea
+- Cakes
+- Novelties
+
+Use attractive product photographs consistent with the approved design. Keep the images and labels separate so each card can be a working navigation link.
+
+## 5. Weekly specials
+
+Create three promotional cards:
+
+Tuesday:
+"All Tea Half Price"
+
+Wednesday:
+"Sundae — Buy One, Get One Free"
+
+Daily:
+"Birthday Treat — Free Ice Cream or Tea"
+
+Do not add unapproved eligibility conditions or pricing.
+
+## 6. Navigation and interactions
+
+Use these destinations:
+
+- Home: Homepage
+- Menu: Product menu
+- Cakes: Cake gallery
+- Specials: Weekly specials section
+- Feedback: Customer feedback page or section
+- Visit Us: Store location, opening hours, phone and directions
+- Order Online: Customer pickup ordering
+
+If a destination does not exist yet, create a simple reusable placeholder or clearly identify it as not implemented. Do not fabricate working ordering or payment functionality.
+
+Reserve the online ordering architecture for future integration with my ASP.NET Core 10 Web API and Square-hosted checkout.
+
+## 7. Location and contact information
+
+Swirl & Tea  
+113 Danbury Road, Unit 01  
+Ridgefield, CT 06877  
+Phone: 203-438-7424
+
+Hours:
+- Sunday–Thursday: 11:00 AM–9:30 PM
+- Friday–Saturday: 11:00 AM–10:00 PM
+
+## 8. Development requirements
+
+- Use the provided logo and icon files.
+- Make the homepage responsive for desktop, tablet and iPhone.
+- Use semantic HTML and accessible navigation.
+- Provide appropriate image alt text.
+- Optimize images for fast loading.
+- Preserve the visual style of the attached reference.
+- Do not use the entire screenshot as the webpage background.
+- Build real React components with working links and buttons.
+- Avoid hardcoded production API keys, secrets, or payment credentials.
+
+## 9. Implementation process
+
+First, inspect my existing project structure, routing, components, styles, and assets.
+
+Then implement the homepage without unnecessarily replacing existing functionality.
+
+After implementation:
+1. Run `npm run build`.
+2. Fix any build errors.
+3. Run the application locally.
+4. Identify missing assets or incomplete destinations.
+5. Summarize all files created or modified.
+
+The final homepage should closely match the attached mockup, not a newly invented design.
