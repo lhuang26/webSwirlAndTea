@@ -41,18 +41,10 @@ const categories = [
   },
 ]
 
-const features = [
-  { title: 'Family Friendly', icon: <FamilyIcon /> },
-  { title: 'Quality Ingredients', icon: <LeafIcon /> },
-  { title: 'Tea for Every Generation', icon: <TeaIcon /> },
-  { title: 'A True Neighborhood Spot', icon: <HeartIcon /> },
-]
-
 const specials = [
   {
     day: 'Tuesday',
-    offer: 'All Tea',
-    detail: 'Half Price',
+    offer: 'All Tea Half Price',
     image: '/images/home/tuesday-tea.jpg',
     alt: 'Iced bubble tea',
     icon: <CalendarIcon />,
@@ -69,6 +61,7 @@ const specials = [
     day: 'Daily',
     offer: 'Birthday Treat',
     detail: 'Free Ice Cream or Tea',
+    note: '(with valid ID)',
     image: '/images/home/daily-birthday.jpg',
     alt: 'Birthday cupcake topped with frosting and sprinkles',
     icon: <GiftIcon />,
@@ -120,44 +113,6 @@ function PinIcon() {
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
       <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
       <circle cx="12" cy="10" r="2.2" />
-    </svg>
-  )
-}
-
-function FamilyIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
-      <circle cx="32" cy="12" r="7" />
-      <circle cx="13" cy="17" r="6" />
-      <circle cx="51" cy="17" r="6" />
-      <path d="M19 48V39a13 13 0 0 1 26 0v9H19Zm-16 0v-8a10 10 0 0 1 12-10m46 18v-8a10 10 0 0 0-12-10" />
-      <path d="M4 25a9 9 0 0 1 18 0m20 0a9 9 0 0 1 18 0" />
-    </svg>
-  )
-}
-
-function LeafIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
-      <path d="M8 45C9 19 29 7 57 7 57 34 44 49 18 49" />
-      <path d="M9 49 42 17" />
-    </svg>
-  )
-}
-
-function TeaIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
-      <path d="M11 27h34v10a14 14 0 0 1-14 14h-6a14 14 0 0 1-14-14V27Zm34 4h5a8 8 0 0 1 0 16h-9" />
-      <path d="M20 5c-5 5 5 7 0 12m13-15c-5 5 5 7 0 12m13-9c-5 5 5 7 0 12" />
-    </svg>
-  )
-}
-
-function HeartIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
-      <path d="M32 48 8 26C-2 12 17 1 29 14l3 4 4-4C48 1 66 12 56 26L32 48Z" />
     </svg>
   )
 }
@@ -249,13 +204,18 @@ function Header() {
 function Hero() {
   return (
     <section className="hero-banner" id="home" aria-labelledby="hero-title">
+      <img
+        className="hero-products"
+        src="/images/home/hero-treats.jpg"
+        alt="Soft-serve ice cream, bubble tea, green tea, and traditional hot tea"
+        fetchPriority="high"
+      />
       <div className="hero-copy">
         <h1 id="hero-title">Ice Cream, Tea, Cakes &amp; Novelties</h1>
         <span className="hero-underline" aria-hidden="true" />
         <div className="hero-location">
           <PinIcon />
           <p>Your Local Treat Shop in Ridgefield, CT</p>
-          <HeartIcon />
         </div>
         <p className="hero-description">
           A cozy, welcoming place for friends,
@@ -267,27 +227,6 @@ function Hero() {
           <span>Order Online for Pickup</span>
           <span aria-hidden="true" className="button-chevron">›</span>
         </a>
-      </div>
-      <img
-        className="hero-products"
-        src="/images/home/hero-treats.jpg"
-        alt="Soft-serve ice cream, bubble tea, green tea, and traditional hot tea"
-        fetchPriority="high"
-      />
-    </section>
-  )
-}
-
-function ValuesSection() {
-  return (
-    <section className="values-bar" aria-label="What makes Swirl & Tea special">
-      <div className="values-inner">
-        {features.map((feature) => (
-          <div className="value-item" key={feature.title}>
-            {feature.icon}
-            <span>{feature.title}</span>
-          </div>
-        ))}
       </div>
     </section>
   )
@@ -351,7 +290,8 @@ function SpecialsSection() {
             </div>
             <div className="special-copy">
               <p>{special.offer}</p>
-              <p className="special-detail">{special.detail}</p>
+              {special.detail && <p className="special-detail">{special.detail}</p>}
+              {special.note && <p className="special-note">{special.note}</p>}
             </div>
           </article>
         ))}
@@ -438,9 +378,8 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <ValuesSection />
-        <CategorySection />
         <StoreInterior />
+        <CategorySection />
         <SpecialsSection />
       </main>
       <VisitSection />
