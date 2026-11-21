@@ -41,10 +41,18 @@ const categories = [
   },
 ]
 
+const features = [
+  { title: 'Family Friendly', icon: <FamilyIcon /> },
+  { title: 'Quality Ingredients', icon: <LeafIcon /> },
+  { title: 'Tea for Every Generation', icon: <TeaIcon /> },
+  { title: 'A True Neighborhood Spot', icon: <HeartIcon /> },
+]
+
 const specials = [
   {
     day: 'Tuesday',
-    offer: 'All Tea Half Price',
+    offer: 'All Tea',
+    detail: 'Half Price',
     image: '/images/home/tuesday-tea.jpg',
     alt: 'Iced bubble tea',
     icon: <CalendarIcon />,
@@ -52,7 +60,7 @@ const specials = [
   {
     day: 'Wednesday',
     offer: 'Sundae',
-    detail: 'Buy One, Get One Free',
+    detail: 'Buy One Get One FREE',
     image: '/images/home/wednesday-sundae.jpg',
     alt: 'Ice cream sundae with whipped cream and a cherry',
     icon: <CalendarIcon />,
@@ -116,6 +124,80 @@ function PinIcon() {
   )
 }
 
+function FamilyIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
+      <circle cx="32" cy="12" r="7" />
+      <circle cx="13" cy="17" r="6" />
+      <circle cx="51" cy="17" r="6" />
+      <path d="M19 48V39a13 13 0 0 1 26 0v9H19Zm-16 0v-8a10 10 0 0 1 12-10m46 18v-8a10 10 0 0 0-12-10" />
+      <path d="M4 25a9 9 0 0 1 18 0m20 0a9 9 0 0 1 18 0" />
+    </svg>
+  )
+}
+
+function LeafIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
+      <path d="M8 45C9 19 29 7 57 7 57 34 44 49 18 49" />
+      <path d="M9 49 42 17" />
+    </svg>
+  )
+}
+
+function TeaIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
+      <path d="M11 27h34v10a14 14 0 0 1-14 14h-6a14 14 0 0 1-14-14V27Zm34 4h5a8 8 0 0 1 0 16h-9" />
+      <path d="M20 5c-5 5 5 7 0 12m13-15c-5 5 5 7 0 12m13-9c-5 5 5 7 0 12" />
+    </svg>
+  )
+}
+
+function HeartIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 64 54" fill="none">
+      <path d="M32 48 8 26C-2 12 17 1 29 14l3 4 4-4C48 1 66 12 56 26L32 48Z" />
+    </svg>
+  )
+}
+
+function PhoneIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M6.5 3.5 9 3l2 5-2.2 2a15 15 0 0 0 5.2 5.2l2-2.2 5 2-.5 2.5a3 3 0 0 1-3.3 2.4A17.5 17.5 0 0 1 4.1 6.8 3 3 0 0 1 6.5 3.5Z" />
+    </svg>
+  )
+}
+
+function ClockIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 6v6l4 2" />
+    </svg>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.8" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+function FacebookIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="currentColor" stroke="none" />
+      <path d="M13.5 20v-7h2.4l.4-2.8h-2.8V8.4c0-.8.3-1.4 1.4-1.4h1.5V4.5c-.7-.1-1.5-.2-2.3-.2-2.3 0-3.9 1.4-3.9 4v1.9H8V13h2.2v7h3.3Z" fill="#85001c" stroke="none" />
+    </svg>
+  )
+}
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -166,56 +248,46 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="hero" id="home" aria-labelledby="hero-title">
-      <img
-        className="hero-desktop-scene"
-        src="/images/home/hero-desktop.jpg"
-        alt="Guests enjoying tea and ice cream together inside Swirl & Tea."
-      />
-      <div className="hero-mobile">
-        <div className="hero-copy">
-          <h1 id="hero-title">Your Neighborhood Dessert &amp; Tea Shop</h1>
-          <span className="hero-flourish" aria-hidden="true">
-            <span />
-            <b>♥</b>
-            <span />
-          </span>
-          <p className="hero-subtitle">Bubble Tea, Traditional Chinese Tea &amp; Ice Cream</p>
-          <p className="hero-description">
-            A cozy, welcoming place for friends, families,
-            <br className="desktop-break" /> and tea lovers of all ages.
-          </p>
-        </div>
-        <img
-          className="hero-mobile-scene"
-          src="/images/home/hero-mobile.jpg"
-          alt="Friends and families sharing treats around the shop's blue and red seating."
-        />
-      </div>
-    </section>
-  )
-}
-
-function PromotionBanner() {
-  return (
-    <section className="promotion" aria-labelledby="promotion-title">
-      <img
-        className="promotion-image"
-        src="/images/home/treats-promo.jpg"
-        alt="Soft-serve ice cream, bubble tea, green tea, and traditional hot tea"
-        loading="lazy"
-      />
-      <div className="promotion-copy">
-        <h2 id="promotion-title">Ice Cream, Tea, Cakes &amp; Novelties</h2>
-        <p className="location-prompt">
+    <section className="hero-banner" id="home" aria-labelledby="hero-title">
+      <div className="hero-copy">
+        <h1 id="hero-title">Ice Cream, Tea, Cakes &amp; Novelties</h1>
+        <span className="hero-underline" aria-hidden="true" />
+        <div className="hero-location">
           <PinIcon />
-          <span>Your Local Treat Shop in Ridgefield, CT</span>
+          <p>Your Local Treat Shop in Ridgefield, CT</p>
+          <HeartIcon />
+        </div>
+        <p className="hero-description">
+          A cozy, welcoming place for friends,
+          <br />
+          families, and tea lovers of all ages.
         </p>
         <a className="order-button pickup-button" href="#ordering">
           <CartIcon />
           <span>Order Online for Pickup</span>
           <span aria-hidden="true" className="button-chevron">›</span>
         </a>
+      </div>
+      <img
+        className="hero-products"
+        src="/images/home/hero-treats.jpg"
+        alt="Soft-serve ice cream, bubble tea, green tea, and traditional hot tea"
+        fetchPriority="high"
+      />
+    </section>
+  )
+}
+
+function ValuesSection() {
+  return (
+    <section className="values-bar" aria-label="What makes Swirl & Tea special">
+      <div className="values-inner">
+        {features.map((feature) => (
+          <div className="value-item" key={feature.title}>
+            {feature.icon}
+            <span>{feature.title}</span>
+          </div>
+        ))}
       </div>
     </section>
   )
@@ -243,6 +315,18 @@ function CategorySection() {
   )
 }
 
+function StoreInterior() {
+  return (
+    <section className="store-scene" aria-label="Inside Swirl & Tea">
+      <img
+        src="/images/home/store-interior.jpg"
+        alt="Friends and families enjoying tea and ice cream in Swirl & Tea's welcoming shop."
+        loading="lazy"
+      />
+    </section>
+  )
+}
+
 function SectionHeading({ children }: { children: string }) {
   return (
     <div className="section-heading">
@@ -260,14 +344,14 @@ function SpecialsSection() {
       <div className="specials-grid">
         {specials.map((special) => (
           <article className="special-card" key={special.day}>
+            <img className="special-image" src={special.image} alt={special.alt} loading="lazy" />
             <div className="special-day">
               {special.icon}
               <h3>{special.day}</h3>
             </div>
-            <img className="special-image" src={special.image} alt={special.alt} loading="lazy" />
             <div className="special-copy">
               <p>{special.offer}</p>
-              {special.detail && <p className="special-detail">{special.detail}</p>}
+              <p className="special-detail">{special.detail}</p>
             </div>
           </article>
         ))}
@@ -312,47 +396,39 @@ function InformationSections() {
 
 function VisitSection() {
   return (
-    <section className="visit-section" id="visit">
-      <div className="visit-inner content-width">
-        <div className="visit-address">
-          <p className="footer-eyebrow">Come see us</p>
-          <h2>Swirl &amp; Tea</h2>
-          <address>
+    <footer className="contact-footer" id="visit">
+      <div className="contact-inner">
+        <a
+          className="contact-item address-item"
+          href="https://www.google.com/maps/dir/?api=1&destination=113+Danbury+Road%2C+Unit+01%2C+Ridgefield%2C+CT+06877"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <PinIcon />
+          <span>
             113 Danbury Road, Unit 01
             <br />
             Ridgefield, CT 06877
-          </address>
-          <a className="phone-link" href="tel:+12034387424">
-            203-438-7424
-          </a>
-          <a
-            className="directions-link"
-            href="https://www.google.com/maps/dir/?api=1&destination=113+Danbury+Road%2C+Unit+01%2C+Ridgefield%2C+CT+06877"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <PinIcon />
-            Get directions
-          </a>
+          </span>
+        </a>
+        <a className="contact-item phone-item" href="tel:+12034387424">
+          <PhoneIcon />
+          <span>203-438-7424</span>
+        </a>
+        <div className="contact-item hours-item">
+          <ClockIcon />
+          <span>
+            Sun – Thu: 11:00 AM – 9:30 PM
+            <br />
+            Fri – Sat: 11:00 AM – 10:00 PM
+          </span>
         </div>
-        <div className="hours-card">
-          <h3>Store Hours</h3>
-          <dl>
-            <div>
-              <dt>Sunday–Thursday</dt>
-              <dd>11:00 AM–9:30 PM</dd>
-            </div>
-            <div>
-              <dt>Friday–Saturday</dt>
-              <dd>11:00 AM–10:00 PM</dd>
-            </div>
-          </dl>
+        <div className="social-icons" aria-hidden="true">
+          <FacebookIcon />
+          <InstagramIcon />
         </div>
       </div>
-      <div className="footer-bottom">
-        <p>Take a breath. Enjoy a cup.</p>
-      </div>
-    </section>
+    </footer>
   )
 }
 
@@ -362,12 +438,13 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <PromotionBanner />
+        <ValuesSection />
         <CategorySection />
+        <StoreInterior />
         <SpecialsSection />
-        <InformationSections />
       </main>
       <VisitSection />
+      <InformationSections />
     </div>
   )
 }
