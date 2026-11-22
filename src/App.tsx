@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 const navigation = [
@@ -153,7 +153,7 @@ function FacebookIcon() {
   )
 }
 
-function Header() {
+function Header({ activeHash }: { activeHash: string }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -179,11 +179,21 @@ function Header() {
           id="primary-navigation"
           aria-label="Main navigation"
         >
-          {navigation.map((item, index) => (
+          {navigation.map((item) => (
             <a
-              className={index === 0 ? 'nav-link is-active' : 'nav-link'}
+              className={
+                (item.href === '#home' && (!activeHash || activeHash === '#home'))
+                  || activeHash === item.href
+                  ? 'nav-link is-active'
+                  : 'nav-link'
+              }
               href={item.href}
-              aria-current={index === 0 ? 'page' : undefined}
+              aria-current={
+                ((item.href === '#home' && (!activeHash || activeHash === '#home'))
+                  || activeHash === item.href)
+                  ? 'page'
+                  : undefined
+              }
               key={item.label}
               onClick={() => setMenuOpen(false)}
             >
@@ -372,18 +382,49 @@ function VisitSection() {
   )
 }
 
+function MenuPage() {
+  return (
+    <main className="menu-page">
+      <h1>Menu</h1>
+    </main>
+  )
+}
+
 function App() {
+  const [activeHash, setActiveHash] = useState(window.location.hash)
+
+  useEffect(() => {
+    const handleHashChange = () => setActiveHash(window.location.hash)
+
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  useEffect(() => {
+    if (!activeHash || activeHash === '#menu') {
+      return
+    }
+
+    window.requestAnimationFrame(() => {
+      document.querySelector(activeHash)?.scrollIntoView()
+    })
+  }, [activeHash])
+
   return (
     <div className="site-shell">
-      <Header />
-      <main>
-        <Hero />
-        <StoreInterior />
-        <CategorySection />
-        <SpecialsSection />
-      </main>
+      <Header activeHash={activeHash} />
+      {activeHash === '#menu' ? (
+        <MenuPage />
+      ) : (
+        <main>
+          <Hero />
+          <StoreInterior />
+          <CategorySection />
+          <SpecialsSection />
+        </main>
+      )}
       <VisitSection />
-      <InformationSections />
+      {activeHash !== '#menu' && <InformationSections />}
     </div>
   )
 }
