@@ -1,6 +1,41 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ??
+  (import.meta.env.DEV
+    ? ''
+    : 'https://apitekera-c8atgfakc0ggb0fw.westus3-01.azurewebsites.net')
+const SITE_ID = 'TEKERA-0000001'
+
+interface SiteProduct {
+  siteID: string
+  price: number
+  taxable: boolean
+}
+
+interface ProductTypeItem {
+  prodTypeItemID: number
+  name: string
+  isActive: boolean
+  siteProdTypeItems: SiteProduct[]
+}
+
+interface ProductType {
+  prodTypeID: number
+  prodTypeName: string
+  isActive: boolean
+  prodTypeItems: ProductTypeItem[]
+}
+
+interface Product {
+  prodID: number
+  prodName: string
+  detail: string
+  isActive: boolean
+  prodTypes: ProductType[]
+}
+
 const navigation = [
   { label: 'Home', href: '#home' },
   { label: 'Menu', href: '#menu' },
@@ -382,16 +417,147 @@ function VisitSection() {
   )
 }
 
-function MenuPage() {
+function MenuPage({
+  products,
+  loading,
+  error,
+}: {
+  products: Product[]
+  loading: boolean
+  error: string
+}) {
+  const activeProducts = products.filter((product) => product.isActive)
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null)
+  const selectedProduct =
+    activeProducts.find((product) => product.prodID === selectedProductId) ??
+    activeProducts[0]
+
   return (
     <main className="menu-page">
-      <h1>Menu</h1>
+      <div className="menu-content">
+        <h1>Menu</h1>
+        {loading && <p role="status">Loading menu…</p>}
+        {error && <p className="menu-error" role="alert">{error}</p>}
+        {!loading && !error && activeProducts.length === 0 && (
+          <p className="menu-empty">Menu items are not available yet.</p>
+        )}
+        {selectedProduct && (
+          <>
+            <div className="menu-tabs" role="tablist" aria-label="Product categories">
+              {activeProducts.map((product) => (
+                <button
+                  aria-controls={`product-panel-${product.prodID}`}
+                  aria-selected={product.prodID === selectedProduct.prodID}
+                  className={
+                    product.prodID === selectedProduct.prodID
+                      ? 'menu-tab is-selected'
+                      : 'menu-tab'
+                  }
+                  id={`product-tab-${product.prodID}`}
+                  key={product.prodID}
+                  onClick={() => setSelectedProductId(product.prodID)}
+                  role="tab"
+                  type="button"
+                >
+                  {product.prodName}
+                </button>
+              ))}
+            </div>
+            <section
+              aria-labelledby={`product-tab-${selectedProduct.prodID}`}
+              className="menu-panel"
+              id={`product-panel-${selectedProduct.prodID}`}
+              role="tabpanel"
+              tabIndex={0}
+            >
+              <h2>{selectedProduct.prodName}</h2>
+              {selectedProduct.detail && <p className="menu-detail">{selectedProduct.detail}</p>}
+              {selectedProduct.prodTypes.filter((type) => type.isActive).length === 0 ? (
+                <p className="menu-empty">Menu items are not available for this category yet.</p>
+              ) : (
+                <div className="menu-type-list">
+                  {selectedProduct.prodTypes
+                    .filter((type) => type.isActive)
+                    .map((type) => {
+                      const items = type.prodTypeItems.filter((item) => item.isActive)
+
+                      return (
+                        <section className="menu-type" key={type.prodTypeID}>
+                          <h3>{type.prodTypeName}</h3>
+                          {items.length > 0 ? (
+                            <ul>
+                              {items.map((item) => {
+                                const siteItem = item.siteProdTypeItems.find(
+                                  (entry) => entry.siteID === SITE_ID,
+                                )
+
+                                return (
+                                  <li key={item.prodTypeItemID}>
+                                    <span>{item.name}</span>
+                                    {siteItem && (
+                                      <span className="menu-price">
+                                        {new Intl.NumberFormat('en-US', {
+                                          style: 'currency',
+                                          currency: 'USD',
+                                        }).format(siteItem.price)}
+                                      </span>
+                                    )}
+                                  </li>
+                                )
+                              })}
+                            </ul>
+                          ) : (
+                            <p className="menu-empty">Items are not available yet.</p>
+                          )}
+                        </section>
+                      )
+                    })}
+                </div>
+              )}
+            </section>
+          </>
+        )}
+      </div>
     </main>
   )
 }
 
 function App() {
   const [activeHash, setActiveHash] = useState(window.location.hash)
+  const [products, setProducts] = useState<Product[]>([])
+  const [productsLoading, setProductsLoading] = useState(true)
+  const [productsError, setProductsError] = useState('')
+
+  useEffect(() => {
+    let active = true
+
+    fetch(`${API_BASE_URL}/api/sites/${encodeURIComponent(SITE_ID)}/products`)
+      .then(async (response) => {
+        if (!response.ok) {
+          const details = await response.text()
+          throw new Error(details || `The menu request failed (${response.status}).`)
+        }
+
+        return (await response.json()) as Product[]
+      })
+      .then((loadedProducts) => {
+        if (active) setProducts(loadedProducts)
+      })
+      .catch((error: unknown) => {
+        if (active) {
+          setProductsError(
+            error instanceof Error ? error.message : 'Could not load the menu.',
+          )
+        }
+      })
+      .finally(() => {
+        if (active) setProductsLoading(false)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [])
 
   useEffect(() => {
     const handleHashChange = () => setActiveHash(window.location.hash)
@@ -414,7 +580,11 @@ function App() {
     <div className="site-shell">
       <Header activeHash={activeHash} />
       {activeHash === '#menu' ? (
-        <MenuPage />
+        <MenuPage
+          products={products}
+          loading={productsLoading}
+          error={productsError}
+        />
       ) : (
         <main>
           <Hero />

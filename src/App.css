@@ -327,18 +327,121 @@
 }
 
 .menu-page {
-  display: grid;
   min-height: 360px;
-  place-items: start center;
-  padding: 70px 24px;
+  padding: 56px 24px 80px;
   background: #fffaf3;
 }
 
+.menu-content {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+}
+
 .menu-page h1 {
-  margin: 0;
+  margin: 0 0 30px;
   color: #85001c;
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
+  text-align: center;
+}
+
+.menu-tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 0 12px;
+  border-bottom: 2px solid #d8cbbd;
+}
+
+.menu-tab {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding: 10px 20px;
+  border: 1px solid #d8cbbd;
+  border-radius: 999px;
+  background: #fff;
+  color: #603044;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.menu-tab:hover,
+.menu-tab:focus-visible {
+  border-color: #85001c;
+}
+
+.menu-tab.is-selected {
+  border-color: #85001c;
+  background: #85001c;
+  color: #fffaf1;
+}
+
+.menu-panel {
+  padding: 28px 4px 0;
+}
+
+.menu-panel h2 {
+  margin: 0 0 8px;
+  color: #85001c;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.menu-detail {
+  margin: 0 0 24px;
+  color: #594f4b;
+}
+
+.menu-type-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.menu-type {
+  padding: 20px;
+  border: 1px solid #eadfd1;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgb(75 43 23 / 6%);
+}
+
+.menu-type h3 {
+  margin: 0 0 12px;
+  color: #85001c;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+}
+
+.menu-type ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-type li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #352c29;
+}
+
+.menu-price {
+  flex: 0 0 auto;
+  color: #603044;
+  font-weight: 700;
+}
+
+.menu-empty {
+  color: #675a54;
+}
+
+.menu-error {
+  color: #a00024;
   text-align: center;
 }
 
